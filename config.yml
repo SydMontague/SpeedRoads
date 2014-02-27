@@ -1,0 +1,13 @@
+roads:
+    road1:
+        block0: AIR
+        block1: GRAVEL
+        block2: COBBLESTONE
+        block3: COBBLESTONE
+        speed: 0.5
+    road2:
+        block0: AIR
+        block1: COBBLESTONE
+        block2: GRAVEL
+        block3: COBBLESTONE
+        speed: 0.5

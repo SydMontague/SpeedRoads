@@ -1,0 +1,13 @@
+name: SpeedRoads
+main: de.craftlancer.speedroads.SpeedRoads
+version: 0.1
+description: Meep Mepp
+depend: [SpeedAPI, CLGroups]
+commands:
+  roads:
+    description: Admin commands of SpeedRoads
+    usage: /roads reload
+permissions:
+  speedroads.admin:
+    description: Access to admin commands
+    default: op
