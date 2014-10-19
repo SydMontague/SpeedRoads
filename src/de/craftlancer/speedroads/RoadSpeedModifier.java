@@ -3,8 +3,8 @@ package de.craftlancer.speedroads;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import de.craftlancer.groups.Plot;
-import de.craftlancer.groups.managers.PlotManager;
+//import de.craftlancer.groups.Plot;
+//import de.craftlancer.groups.managers.PlotManager;
 import de.craftlancer.speedapi.SpeedModifier;
 
 public class RoadSpeedModifier extends SpeedModifier
@@ -20,9 +20,9 @@ public class RoadSpeedModifier extends SpeedModifier
     @Override
     public float getSpeedChange(Player p, float speed)
     {
-        Plot plot = PlotManager.getPlot(p.getLocation());
-        if(plot.isTownPlot())
-            return 0;
+        //Plot plot = PlotManager.getPlot(p.getLocation());
+        //if(plot.isTownPlot())
+        //   return 0;
         
         Block block = p.getLocation().getBlock();
         float speedMod = 0;
@@ -41,5 +41,11 @@ public class RoadSpeedModifier extends SpeedModifier
     public boolean isApplicable(Player p)
     {
         return true;
+    }
+
+    @Override
+    public boolean isInstant(Player arg0)
+    {
+        return false;
     }
 }
