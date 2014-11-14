@@ -3,6 +3,7 @@ package de.craftlancer.speedroads;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+@Deprecated
 public class RoadTask implements Runnable
 {
     private SpeedRoads instance;

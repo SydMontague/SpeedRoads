@@ -26,8 +26,6 @@ public class SpeedRoads extends JavaPlugin
         roads = loadRoads();
         
         SpeedAPI.addModifier("road", new RoadSpeedModifier(1, this));
-        // getServer().getScheduler().scheduleSyncRepeatingTask(this, new
-        // RoadTask(this), 5L, 5L);
     }
     
     @Override

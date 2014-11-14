@@ -20,10 +20,6 @@ public class RoadSpeedModifier extends SpeedModifier
     @Override
     public float getSpeedChange(Player p, float speed)
     {
-        //Plot plot = PlotManager.getPlot(p.getLocation());
-        //if(plot.isTownPlot())
-        //   return 0;
-        
         Block block = p.getLocation().getBlock();
         float speedMod = 0;
         
