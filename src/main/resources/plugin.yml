@@ -1,8 +1,8 @@
 name: SpeedRoads
 main: de.craftlancer.speedroads.SpeedRoads
-version: 0.1
+version: ${project.version}
+api-version: 1.14
 description: Meep Mepp
-depend: [SpeedAPI]
 commands:
   roads:
     description: Admin commands of SpeedRoads

@@ -1,0 +1,13 @@
+stepSize: 0.01
+roads:
+  road1:
+    speed: 0.5
+    blocks:
+      - ANY
+      - GRAVEL
+      - COBBLESTONE
+      - COBBLESTONE
+  road2:
+    speed: 0.2
+    blocks:
+      - GRASS_PATH
