@@ -19,7 +19,6 @@ public class SpeedRoadsTask extends BukkitRunnable {
     private final SpeedRoads plugin;
     
     private Map<UUID, Double> currentSpeedMap = new HashMap<>();
-    private static final double STEP_SIZE = 0.01;
     
     public SpeedRoadsTask(SpeedRoads plugin) {
         this.plugin = plugin;
@@ -33,19 +32,22 @@ public class SpeedRoadsTask extends BukkitRunnable {
     
     private void applyAttribute(LivingEntity a) {
         double currentSpeedMod = currentSpeedMap.getOrDefault(a.getUniqueId(), 0D);
-        double targetSpeedMod = 0;
+        double targetSpeedMod = Double.NEGATIVE_INFINITY;
         AttributeInstance attrib = a.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         
         for (Road r : plugin.getRoads())
             if (r.isRoadBlock(a.getLocation().getBlock()) && r.getSpeedMod() > targetSpeedMod)
                 targetSpeedMod = r.getSpeedMod();
-            
+        
+        if(targetSpeedMod == Double.NEGATIVE_INFINITY)
+            targetSpeedMod = 0.0;
+        
         attrib.removeModifier(new AttributeModifier(MODIFIER_UUID, MODIFIER_NAME, currentSpeedMod, Operation.ADD_SCALAR));
         
         if (targetSpeedMod >= currentSpeedMod)
-            currentSpeedMod = Math.min(currentSpeedMod + STEP_SIZE, targetSpeedMod);
+            currentSpeedMod = Math.min(currentSpeedMod + plugin.getStepSize(), targetSpeedMod);
         else
-            currentSpeedMod = Math.max(currentSpeedMod - STEP_SIZE, 0);
+            currentSpeedMod = Math.max(currentSpeedMod - plugin.getStepSize(), 0);
         
         attrib.addModifier(new AttributeModifier(MODIFIER_UUID, MODIFIER_NAME, currentSpeedMod, Operation.ADD_SCALAR));
         currentSpeedMap.put(a.getUniqueId(), currentSpeedMod);
