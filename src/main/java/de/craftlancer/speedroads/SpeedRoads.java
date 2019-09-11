@@ -1,17 +1,21 @@
 package de.craftlancer.speedroads;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SpeedRoads extends JavaPlugin {
-    
     private Set<Road> roads;
     private double stepSize = 0.01D;
+    private Set<Class<? extends LivingEntity>> affectedEntities = new HashSet<>();
     
     @Override
     public void onEnable() {
@@ -28,6 +32,18 @@ public class SpeedRoads extends JavaPlugin {
     private void loadConfig() {
         stepSize = getConfig().getDouble("stepSize", 0.01D);
         
+        for (String s : getConfig().getStringList("affectedEntities")) {
+            EntityType type = EntityType.valueOf(s);
+            
+            if (type == EntityType.PLAYER)
+                continue;
+            
+            Class<? extends Entity> clazz = type.getEntityClass();
+            
+            if (clazz.isAssignableFrom(LivingEntity.class))
+                affectedEntities.add(clazz.asSubclass(LivingEntity.class));
+        }
+        
         ConfigurationSection roadSection = getConfig().getConfigurationSection("roads");
         roads = roadSection.getKeys(false).stream().map(key -> new Road(roadSection.getConfigurationSection(key))).collect(Collectors.toSet());
         getLogger().info(() -> roads.size() + " Road(s) loaded");
@@ -39,6 +55,10 @@ public class SpeedRoads extends JavaPlugin {
     
     public double getStepSize() {
         return stepSize;
+    }
+    
+    public Set<Class<? extends LivingEntity>> getAffectedEntities() {
+        return affectedEntities;
     }
     
     @Override

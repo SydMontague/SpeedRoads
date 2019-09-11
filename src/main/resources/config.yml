@@ -1,4 +1,9 @@
 stepSize: 0.01
+affectedEntities:
+  - HORSE
+  - LLAMA
+  - MULE
+  - DONKEY
 roads:
   road1:
     speed: 0.5

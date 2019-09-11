@@ -9,7 +9,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
-import org.bukkit.entity.Horse;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -27,7 +27,12 @@ public class SpeedRoadsTask extends BukkitRunnable {
     @Override
     public void run() {
         Bukkit.getOnlinePlayers().forEach(this::applyAttribute);
-        Bukkit.getServer().getWorlds().forEach(a -> a.getEntitiesByClass(Horse.class).forEach(this::applyAttribute));
+        Bukkit.getWorlds().forEach(a -> a.getEntitiesByClasses(plugin.getAffectedEntities().toArray(new Class[0])).forEach(this::applyAttribute));
+    }
+    
+    private void applyAttribute(Entity a) {
+        if (a instanceof LivingEntity)
+            applyAttribute(a);
     }
     
     private void applyAttribute(LivingEntity a) {
@@ -38,8 +43,8 @@ public class SpeedRoadsTask extends BukkitRunnable {
         for (Road r : plugin.getRoads())
             if (r.isRoadBlock(a.getLocation().getBlock()) && r.getSpeedMod() > targetSpeedMod)
                 targetSpeedMod = r.getSpeedMod();
-        
-        if(targetSpeedMod == Double.NEGATIVE_INFINITY)
+            
+        if (targetSpeedMod == Double.NEGATIVE_INFINITY)
             targetSpeedMod = 0.0;
         
         attrib.removeModifier(new AttributeModifier(MODIFIER_UUID, MODIFIER_NAME, currentSpeedMod, Operation.ADD_SCALAR));
