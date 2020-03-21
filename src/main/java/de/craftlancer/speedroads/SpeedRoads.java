@@ -30,6 +30,7 @@ public class SpeedRoads extends JavaPlugin {
     }
     
     private void loadConfig() {
+        affectedEntities.clear();
         stepSize = getConfig().getDouble("stepSize", 0.01D);
         
         for (String s : getConfig().getStringList("affectedEntities")) {

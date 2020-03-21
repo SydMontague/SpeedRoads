@@ -3,7 +3,7 @@ main: de.craftlancer.speedroads.SpeedRoads
 version: ${project.version}
 api-version: 1.14
 author: Syd Montague
-description: Meep Mepp
+description: Meep Meep
 commands:
   roads:
     description: Admin commands of SpeedRoads
