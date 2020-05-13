@@ -41,7 +41,7 @@ public class SpeedRoads extends JavaPlugin {
             
             Class<? extends Entity> clazz = type.getEntityClass();
             
-            if (clazz.isAssignableFrom(LivingEntity.class))
+            if (LivingEntity.class.isAssignableFrom(clazz))
                 affectedEntities.add(clazz.asSubclass(LivingEntity.class));
         }
         

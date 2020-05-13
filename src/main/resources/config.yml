@@ -1,9 +1,8 @@
+# maximum acceleration per tick
 stepSize: 0.01
-affectedEntities:
-  - HORSE
-  - LLAMA
-  - MULE
-  - DONKEY
+# Affected non-player living entities, may affect performance negatively
+# See https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+affectedEntities: []
 roads:
   road1:
     speed: 0.5
