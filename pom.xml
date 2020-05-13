@@ -5,7 +5,11 @@
   <groupId>de.craftlancer</groupId>
   <artifactId>SpeedRoads</artifactId>
   <version>1.0.0</version>
-  <name>SpeedRoad</name>
+  <name>SpeedRoads</name>
+
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <repositories>
     <repository>
