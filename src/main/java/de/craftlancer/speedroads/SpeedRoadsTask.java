@@ -1,10 +1,12 @@
 package de.craftlancer.speedroads;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -21,6 +23,9 @@ public class SpeedRoadsTask extends BukkitRunnable {
     
     private Map<UUID, Double> currentSpeedMap = new HashMap<>();
     
+    private Map<World, Collection<Entity>> affectedEntitiesMap = new HashMap<>();
+    private long tickCounter = 0;
+    
     public SpeedRoadsTask(SpeedRoads plugin) {
         this.plugin = plugin;
     }
@@ -28,8 +33,10 @@ public class SpeedRoadsTask extends BukkitRunnable {
     @Override
     public void run() {
         Bukkit.getOnlinePlayers().forEach(this::applyAttribute);
-        if (!plugin.getAffectedEntities().isEmpty())
-            Bukkit.getWorlds().forEach(a -> a.getEntitiesByClasses(plugin.getAffectedEntities().toArray(new Class[0])).forEach(this::applyAttribute));
+        affectedEntitiesMap.forEach((w, a) -> a.forEach(this::applyAttribute));
+        
+        if(tickCounter++ % 100 == 0 && !affectedEntitiesMap.isEmpty())
+            Bukkit.getWorlds().forEach(a -> affectedEntitiesMap.put(a, a.getEntitiesByClasses(plugin.getAffectedEntities().toArray(new Class[0]))));
     }
     
     private void applyAttribute(Entity a) {
