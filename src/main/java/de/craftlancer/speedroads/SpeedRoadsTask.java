@@ -35,7 +35,7 @@ public class SpeedRoadsTask extends BukkitRunnable {
         Bukkit.getOnlinePlayers().forEach(this::applyAttribute);
         affectedEntitiesMap.forEach((w, a) -> a.forEach(this::applyAttribute));
         
-        if(tickCounter++ % 100 == 0 && !affectedEntitiesMap.isEmpty())
+        if(tickCounter++ % 100 == 0 && !plugin.getAffectedEntities().isEmpty())
             Bukkit.getWorlds().forEach(a -> affectedEntitiesMap.put(a, a.getEntitiesByClasses(plugin.getAffectedEntities().toArray(new Class[0]))));
     }
     
