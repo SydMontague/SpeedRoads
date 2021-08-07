@@ -46,7 +46,7 @@ public class SpeedRoads extends JavaPlugin {
         }
         
         ConfigurationSection roadSection = getConfig().getConfigurationSection("roads");
-        roads = roadSection.getKeys(false).stream().map(key -> new Road(roadSection.getConfigurationSection(key))).collect(Collectors.toSet());
+        roads = roadSection.getKeys(false).stream().map(key -> new Road(roadSection.getConfigurationSection(key), getLogger())).collect(Collectors.toSet());
         getLogger().info(() -> roads.size() + " Road(s) loaded");
     }
     
